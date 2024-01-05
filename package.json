@@ -13,6 +13,7 @@
   },
   "scripts": {
     "generate": "node index.js",
+    "dash:remove": "node utils/dashesRemover.js",
     "build": "npm run generate",
     "rarity": "node utils/rarity.js table",
     "pixelate": "node utils/pixelate.js",
@@ -33,6 +34,9 @@
     },
     {
       "name": "Waren Gonzaga"
+    },
+    {
+      "name": "Allan Brando Catayoc {Dzypher}"
     }
   ],
   "license": "MIT",

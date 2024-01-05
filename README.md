@@ -86,6 +86,14 @@ Before: `$ yarn preview_gif` **Now**: `$ yarn preview:gif`
 
 Before: `$ yarn update_info` **Now**: `$ yarn meta:update`
 
+### ✅ Remove Dashes on Layers Folder
+
+Automatically eliminate dashes from both file and folder names within your layers directory.
+
+```bash
+yarn dash:remove
+```
+
 ### ✅ Upload Images to IPFS
 
 You can now upload your generated image assets directly to IPFS and add your CID directly to your existing metadata. So all you have to do is to upload your `_metadata.json` file to the thirdweb dashboard. That's it! _(25GB Upload Limit Size)_
