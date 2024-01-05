@@ -86,12 +86,12 @@ Before: `$ yarn preview_gif` **Now**: `$ yarn preview:gif`
 
 Before: `$ yarn update_info` **Now**: `$ yarn meta:update`
 
-### ✅ Remove Dashes on Layers Folder
+### ✅ File and Directory Name Flattener
 
-Automatically eliminate dashes from both file and folder names within your layers directory.
+By executing the command yarn flattener, you can automatically transform your file and folder names into a flattened format. For instance, if the original name is bg-yellow.png, it will be changed to BG Yellow.png.
 
 ```bash
-yarn dash:remove
+yarn flattener
 ```
 
 ### ✅ Upload Images to IPFS
