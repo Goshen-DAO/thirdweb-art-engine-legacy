@@ -157,14 +157,23 @@ const addMetadata = (_dna, _edition) => {
   attributesList = [];
 };
 
-const capitalize = x => x && x[0].toUpperCase() + x.slice(1);
-
 const addAttributes = (_element) => {
   let selectedElement = _element.layer.selectedElement;
+  const elementName = selectedElement.name.toLowerCase();
+  const cleanedElementName = replaceBgWithBG(elementName);
+
   attributesList.push({
     trait_type: _element.layer.name,
-    value: `${isLayerNameFileNameAsIs ? selectedElement.name : capitalize(selectedElement.name.toLowerCase()) }`,
+    value: `${isLayerNameFileNameAsIs ? selectedElement.name : capitalizeEachWord(cleanedElementName)}`,
   });
+};
+
+const replaceBgWithBG = (str) => {
+  return str.replace(/bg/gi, 'BG');
+};
+
+const capitalizeEachWord = (str) => {
+  return str.replace(/\b\w/g, match => match.toUpperCase());
 };
 
 const loadLayerImg = async (_layer) => {
