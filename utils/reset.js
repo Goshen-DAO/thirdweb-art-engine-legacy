@@ -7,17 +7,20 @@ const buildFolder = `${basePath}/build`;
     if (existsSync(tempFolder)) {
         removeSync(tempFolder, (err) => { 
             if (err) throw err;
-            console.log('[status]: Temp folder deleted ./');
+            console.log('[status]: Temporary folder successfully deleted.');
         });
     } else {
-        console.log('[status]: Temp folder does not exists :/');
+        console.log('[status]: Temporary folder does not exist.');
     }
+
     if (existsSync(buildFolder)) {
         removeSync(buildFolder, (err) => { 
             if (err) throw err
-            console.log('[status]: Build folder deleted ./');
+            console.log('[status]: Build folder successfully deleted.');
         });
     } else {
-        console.log('[status]: Build folder does not exists :/');
+        console.log('[status]: Build folder does not exist.');
     }
+
+    console.log('[message]: You are now ready to generate and build a new NFT collection. Run "yarn build" to proceed.');
 })();

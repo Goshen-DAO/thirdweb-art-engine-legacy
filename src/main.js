@@ -428,6 +428,8 @@ const startGeneration = async () => {
     layerConfigIndex++;
   }
   writeMetaData(JSON.stringify(metadataList, null, 2));
+
+  console.log(`[Success]: Your NFTs have been generated. You can explore them in the "build" folder.`);
 };
 
 module.exports = { startGeneration, buildSetup, getElements };
