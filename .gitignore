@@ -117,3 +117,7 @@ dist
 
 # layers
 layers
+
+# build
+seibuildNSFiles*
+seibuildARFiles*

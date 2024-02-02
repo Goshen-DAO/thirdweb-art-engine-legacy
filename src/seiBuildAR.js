@@ -2,7 +2,7 @@ const basePath = process.cwd();
 const fs = require("fs-extra");
 const sha1 = require(`${basePath}/node_modules/sha1`);
 const { createCanvas, loadImage } = require(`${basePath}/node_modules/canvas`);
-const buildDir = `${basePath}/build`;
+const buildDir = `${basePath}/seibuildARFiles`;
 const layersDir = `${basePath}/layers`;
 const tempDir = `${basePath}/.temp`;
 const {
@@ -22,7 +22,7 @@ const {
   startEditionFrom,
   isLayerNameFileNameAsIs,
   gif,
-} = require(`${basePath}/src/config.js`);
+} = require(`${basePath}/src/seiconfig.js`);
 const canvas = createCanvas(format.width, format.height);
 const ctx = canvas.getContext("2d");
 ctx.imageSmoothingEnabled = format.smoothing;
@@ -48,8 +48,7 @@ const buildSetup = () => {
 
   // create necessary folders
   fs.mkdirSync(buildDir);
-  fs.mkdirSync(`${buildDir}/json`);
-  fs.mkdirSync(`${buildDir}/images`);
+  fs.mkdirSync(`${buildDir}/assets`);
 
   // if gif will be exported, create folder
   if (gif.export) {
@@ -124,7 +123,7 @@ const layersSetup = (layersOrder) => {
 
 const saveImage = (_editionCount) => {
   fs.writeFileSync(
-    `${buildDir}/images/${_editionCount}.png`,
+    `${buildDir}/assets/${_editionCount}.png`,
     canvas.toBuffer("image/png")
   );
 };
@@ -140,15 +139,13 @@ const drawBackground = () => {
   ctx.fillRect(0, 0, format.width, format.height);
 };
 
-const addMetadata = (_dna, _edition) => {
-  let dateTime = Date.now();
+const addMetadata = (_dna, _edition, symbol) => {
   let tempMetadata = {
     name: `${namePrefix} #${_edition}`,
+    symbol: symbol,
     description: description,
     image: `${hasBaseUri ? baseUri+"/": ""}${_edition}.png`,
-    dna: sha1(_dna),
     edition: _edition,
-    date: dateTime,
     ...extraMetadata,
     attributes: attributesList,
     compiler: "The thirdweb Art Engine",
@@ -300,7 +297,7 @@ const createDna = (_layers) => {
 };
 
 const writeMetaData = (_data) => {
-  fs.writeFileSync(`${buildDir}/json/_metadata.json`, _data);
+  fs.writeFileSync(`${buildDir}/assets/_metadata.json`, _data);
 };
 
 const saveMetaDataSingleFile = (_editionCount) => {
@@ -311,7 +308,7 @@ const saveMetaDataSingleFile = (_editionCount) => {
       )
     : null;
   fs.writeFileSync(
-    `${buildDir}/json/${_editionCount}.json`,
+    `${buildDir}/assets/${_editionCount}.json`,
     JSON.stringify(metadata, null, 2)
   );
 };
@@ -331,6 +328,7 @@ function shuffle(array) {
 }
 
 const startGeneration = async () => {
+  const { symbol } = require('./seiconfig.js');
   let layerConfigIndex = 0;
   let editionCount = 1;
   let failedCount = 0;
@@ -402,7 +400,7 @@ const startGeneration = async () => {
             ? console.log("Editions left to create: ", abstractedIndexes)
             : null;
           saveImage(abstractedIndexes[0]);
-          addMetadata(newDna, abstractedIndexes[0]);
+          addMetadata(newDna, abstractedIndexes[0], symbol);
           saveMetaDataSingleFile(abstractedIndexes[0]);
           console.log(
             `Created edition: ${abstractedIndexes[0]}, with DNA: ${sha1(

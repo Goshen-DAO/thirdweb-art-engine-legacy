@@ -13,8 +13,12 @@
   },
   "scripts": {
     "generate": "node index.js",
+    "generateSeiAR": "node seiBuildAR.js",
+    "generateSeiNS": "node seiBuildNS.js",
     "flattener": "node utils/flattener.js",
     "build": "npm run generate",
+    "seiBuild:ar": "npm run generateSeiAR",
+    "seiBuild:ns": "npm run generateSeiNS",
     "rarity": "node utils/rarity.js table",
     "pixelate": "node utils/pixelate.js",
     "reset": "node utils/reset.js",
